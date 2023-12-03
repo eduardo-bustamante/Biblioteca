@@ -12875,7 +12875,7 @@ input[type=number][disabled]::placeholder,
 [type=tel].form-control[disabled]::placeholder,
 [contenteditable].form-control[disabled],
 [contenteditable].form-control[disabled]::placeholder {
-  color: #ddd;
+  color: #06487d;
 }
 
 select,

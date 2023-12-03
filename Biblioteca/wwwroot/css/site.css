@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.detalhes{
+    font-size:25px;
+    border:1px solid black;
+
+}

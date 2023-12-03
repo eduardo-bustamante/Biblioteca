@@ -15,7 +15,7 @@ namespace Biblioteca.Models
         public string? Editora { get; set; }
         public string? Tema { get; set; }
         public string? Capa { get; set; }
-        public DateTime DataCadastro { get; set; } = DateTime.Now;
+        public DateTime DataCadastro { get; set; }
         public Boolean Emprestado { get; set; }
 
     }

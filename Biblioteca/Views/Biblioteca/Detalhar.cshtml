@@ -1,0 +1,67 @@
+﻿@model BibliotecaModel
+@{
+    ViewData["title"] = "Cadastrar Livro";
+}
+<div class="container bg-body-tertiary p-5 rounded-5">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col" style="width:200px;"></th>
+                <th scope="col">Dados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="detalhes">
+                <th>Id</th>
+                <td>@Html.DisplayFor(x=> x.Id)</td>
+            </tr>
+            <tr class ="detalhes">
+                <th>Titulo</th>
+                <td>@Html.DisplayFor(x => x.Titulo)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Autor</th>
+                <td>@Html.DisplayFor(x => x.Autor)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Coleção</th>
+                <td>@Html.DisplayFor(x => x.Colecao)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Volume</th>
+                <td>@Html.DisplayFor(x => x.Volume)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Paginas</th>
+                <td>@Html.DisplayFor(x => x.Paginas)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Idioma</th>
+                <td>@Html.DisplayFor(x => x.Idioma)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Ano</th>
+                <td>@Html.DisplayFor(x => x.Ano)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Editora</th>
+                <td>@Html.DisplayFor(x => x.Editora)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Tema</th>
+                <td>@Html.DisplayFor(x => x.Tema)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Data do Cadastro</th>
+                <td>@Html.DisplayFor(x => x.DataCadastro)</td>
+            </tr>
+            <tr class="detalhes">
+                <th>Emprestado</th>
+                <td>@Html.DisplayFor(x => x.Emprestado)</td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+</div>

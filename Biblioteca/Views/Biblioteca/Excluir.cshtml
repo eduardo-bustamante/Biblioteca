@@ -1,0 +1,88 @@
+﻿@model BibliotecaModel
+@{
+    ViewData["title"] = "Excluir Livro";
+}
+
+
+<div class="container bg-body-tertiary p-5 rounded-5">
+
+    <form method="post" enctype="multipart/form-data" asp-controller="Biblioteca" asp-action="Excluir">
+        <div class="row">
+            <div class="col text-center mb-3">
+                <h3>Confirmar Exclusão do Livro?</h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <label class="form-label">Código</label>
+                <input type="text" class="form-control" id="Id" asp-for="Id" disabled>
+            </div>
+            <div class="col-sm-3">
+                <label class="form-label">Emprestado</label>
+                <input type="checkbox" class="form-check-input" id="Emprestado" asp-for="Emprestado" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-8">
+                <label class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="Titulo" asp-for="Titulo" disabled>
+            </div>
+            <div class="col-sm-4">
+                <label class="form-label">Autor</label>
+                <input type="text" class="form-control" id="Autor" asp-for=" Autor" disabled>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <label class="form-label">Coleção</label>
+                <input type="text" class="form-control" id="Colecao" asp-for="Colecao" disabled>
+            </div>
+            <div class="col-sm-4">
+                <label class="form-label">Volume</label>
+                <input type="number" class="form-control" id="Volume" asp-for="Volume" disabled>
+            </div>
+            <div class="col-sm-2">
+                <label class="form-label">Páginas</label>
+                <input type="number" class="form-control" id="Paginas" asp-for="Paginas" disabled>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <label class="form-label">Idioma</label>
+                <select class="form-select" aria-label="" asp-for="Idioma" disabled>
+                    <option value="português" selected>Português</option>
+                    <option value="Español">Español</option>
+                    <option value="English">English</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <label class="form-label">Ano</label>
+                <input type="number" class="form-control" id="Ano" asp-for="Ano" disabled>
+            </div>
+            <div class="col-sm-4">
+                <label class="form-label">Editora</label>
+                <input type="text" class="form-control" id="Editora" asp-for="Editora" disabled>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-5">
+                <label class="form-label">Tema</label>
+                <input type="text" class="form-control" id="Tema" asp-for="Tema" disabled>
+            </div>
+            <div class="col-sm-7">
+                <label class="form-label">Capa</label>
+                <input type="file" class="form-control" id="Caoa" asp-for="Capa" disabled>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="d-flex gap-5 mt-5">
+                <button type="submit" class="btn btn-success w-50">Excluir</button>
+                <a class="btn btn-primary w-50" asp-controller="Biblioteca" asp-action="Index">Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
