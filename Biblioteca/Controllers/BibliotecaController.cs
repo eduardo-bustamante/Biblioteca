@@ -101,7 +101,6 @@ namespace Biblioteca.Controllers
             TempData["MensagemErro"] = "Algum erro ocorreu ao realizar a edição!";
 
             return View(biblioteca);
-
         }
 
         [HttpPost]
