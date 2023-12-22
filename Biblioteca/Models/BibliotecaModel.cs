@@ -4,12 +4,12 @@ namespace Biblioteca.Models
 {
     public class BibliotecaModel
     {
-         public int? Id { get; set; }
+        public int? Id { get; set; }
         public string Titulo { get; set; }
         public string? Autor { get; set; }
         public string? Colecao { get; set; }
         public int? Volume { get; set; }
-        public int Paginas { get; set; }
+        public int? Paginas { get; set; }
         public string? Idioma { get; set; }
         public int? Ano { get; set; }
         public string? Editora { get; set; }

@@ -7,12 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\NovaPasta\**" />
+    <Content Remove="wwwroot\NovaPasta\**" />
+    <EmbeddedResource Remove="wwwroot\NovaPasta\**" />
+    <None Remove="wwwroot\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\capas\024bf8af-b81c-4500-a762-8a434cf7b7c9o hobit.jpg" />
+    <Content Remove="wwwroot\capas\8f5e44d9-6ec6-4ebd-a507-a27df0ebbef5o hobit.jpg" />
+    <Content Remove="wwwroot\capas\aa07c838-0b1d-444d-b9c1-547452858a87o senhor dos aneis.jpg" />
+    <Content Remove="wwwroot\capas\b96d0cf0-cde9-4e42-bdcb-335228e05012o senhor dos aneis.jpg" />
+    <Content Remove="wwwroot\capas\b9d6f6f4-b09d-4b1d-b1f2-af207f15fb03o senhor dos aneis.jpg" />
+    <Content Remove="wwwroot\capas\cd9aa130-b094-4338-ae39-dbdaae36fde8o senhor dos aneis.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\capas\" />
   </ItemGroup>
 
 </Project>
