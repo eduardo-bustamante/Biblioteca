@@ -2,6 +2,8 @@
 using Biblioteca.Models;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Biblioteca.Controllers
 {
@@ -78,12 +80,6 @@ namespace Biblioteca.Controllers
             biblioteca.DataCadastro = DateTime.Now; //Para cadastrar a data atual no banco de dado
             if (ModelState.IsValid)
             {
-                if (!ValidaCapa(capa))
-                    return View();
-
-                var nome = SalvarCapa(capa);
-
-                biblioteca.Capa = nome;
 
                 _db.Bibliotecas.Add(biblioteca);
                 await _db.SaveChangesAsync();
@@ -113,22 +109,22 @@ namespace Biblioteca.Controllers
             }
         }
 
-        public string SalvarCapa(IFormFile capa)
+        public async Task<IActionResult> SalvarCapa(IFormFile capa)
         {
             var nome = Guid.NewGuid().ToString() + capa.FileName;
 
-            var filePath = _filePath + "\\capas";
+            var filePath = Path.Combine("wwwroot/capas", capa.FileName);
             if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath);
             }
 
-            using (var stream = System.IO.File.Create(filePath + "\\" + nome))
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                capa.CopyToAsync(stream);
+              await capa.CopyToAsync(stream);
             }
 
-            return nome;
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
