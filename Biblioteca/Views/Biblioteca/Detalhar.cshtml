@@ -4,8 +4,6 @@
 }
 <div class="container bg-body-tertiary p-5 rounded-5 row">
     <div class="col">
-
-   
     <table>
         <thead>
             <tr>
@@ -59,17 +57,18 @@
                 <td>@Html.DisplayFor(x => x.DataCadastro)</td>
             </tr>
             <tr class="detalhes">
-                <th>Emprestado</th>
-                <td>@Html.DisplayFor(x => x.Emprestado)</td>
+                <th>Lido</th>
+                <td>@Html.DisplayFor(x => x.Lido)</td>
             </tr>
            
         </tbody>
     </table>
+        <a class="btn btn-info mx-1 m-2" asp-controller="Biblioteca" asp-action="Index"><i class="bi bi-pencil-square mx-2"></i>Voltar</a>
+
     </div>
     <div class="col">
         <h4>Capa</h4>
-        <img src="~/capas/@Html.DisplayFor(x => x.Capa)" width="320" height="460" />
+        <img src="@Html.DisplayFor(x => x.Capa)" width="300" height="400" id="mostrarCapa"/>
     </div>
 </div>
     
-

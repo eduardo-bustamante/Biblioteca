@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\NovaPasta\**" />
-    <Content Remove="wwwroot\NovaPasta\**" />
-    <EmbeddedResource Remove="wwwroot\NovaPasta\**" />
-    <None Remove="wwwroot\NovaPasta\**" />
+    <Compile Remove="wwwroot\Biblioteca\**" />
+    <Content Remove="wwwroot\Biblioteca\**" />
+    <EmbeddedResource Remove="wwwroot\Biblioteca\**" />
+    <None Remove="wwwroot\Biblioteca\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +20,7 @@
     <Content Remove="wwwroot\capas\b96d0cf0-cde9-4e42-bdcb-335228e05012o senhor dos aneis.jpg" />
     <Content Remove="wwwroot\capas\b9d6f6f4-b09d-4b1d-b1f2-af207f15fb03o senhor dos aneis.jpg" />
     <Content Remove="wwwroot\capas\cd9aa130-b094-4338-ae39-dbdaae36fde8o senhor dos aneis.jpg" />
+    <Content Remove="wwwroot\capas\CÁLCULO DE SAPATA ISOLADA 06_23_ENG.RAMOS.xlsb" />
   </ItemGroup>
 
   <ItemGroup>

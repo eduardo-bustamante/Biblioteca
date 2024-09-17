@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biblioteca.Models
 {
@@ -14,9 +16,12 @@ namespace Biblioteca.Models
         public int? Ano { get; set; }
         public string? Editora { get; set; }
         public string? Tema { get; set; }
+        [ValidateNever]
         public string? Capa { get; set; }
         public DateTime DataCadastro { get; set; }
-        public Boolean Emprestado { get; set; }
+        public Boolean Lido { get; set; }
+        [NotMapped]
+        public IFormFile? CapaLivro {  get; set; }
 
     }
 }

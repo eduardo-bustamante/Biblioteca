@@ -4,24 +4,27 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO;
+
+
 
 namespace Biblioteca.Controllers
 {
     public class BibliotecaController : Controller
     {
-        readonly private ApplicationDbContext _db;
-        private string _filePath;
+        private readonly ApplicationDbContext _db;
+        private readonly IWebHostEnvironment _environment;
 
-
-
-        public BibliotecaController(ApplicationDbContext db, IWebHostEnvironment sistema)
+        public BibliotecaController(ApplicationDbContext db, IWebHostEnvironment environment)
         {
             _db = db;
-            _filePath = sistema.WebRootPath;
+            _environment = environment;
+
         }
         public IActionResult Index()
         {
             IEnumerable<BibliotecaModel> bibliotecas = _db.Bibliotecas;
+
             return View(bibliotecas);
         }
 
@@ -42,6 +45,7 @@ namespace Biblioteca.Controllers
             {
                 return NotFound();
             }
+
 
             return View(biblioteca);
         }
@@ -68,18 +72,36 @@ namespace Biblioteca.Controllers
                 return NotFound();
             }
             BibliotecaModel biblioteca = _db.Bibliotecas.FirstOrDefault(x => x.Id == id);
+            if (biblioteca.Capa == null || biblioteca.Capa == "")
+            {
+                biblioteca.Capa = "/capas/default.jpeg";
+            }
 
             return View(biblioteca);
         }
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Cadastrar(BibliotecaModel biblioteca, IFormFile capa)
         {
             biblioteca.DataCadastro = DateTime.Now; //Para cadastrar a data atual no banco de dado
             if (ModelState.IsValid)
             {
+                if (capa != null && capa.Length > 0)
+                {
+                    var uploads = Path.Combine("wwwroot/capas");
+                    var nomeArquivo = Guid.NewGuid().ToString() + biblioteca.Titulo + Path.GetExtension(capa.FileName);
+                    Directory.CreateDirectory(uploads);
+                    var filePath = Path.Combine(uploads, nomeArquivo);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await capa.CopyToAsync(stream);
+                    }
+
+                    biblioteca.Capa = "/capas/" + nomeArquivo;
+                }
+
 
                 _db.Bibliotecas.Add(biblioteca);
                 await _db.SaveChangesAsync();
@@ -92,46 +114,28 @@ namespace Biblioteca.Controllers
             return View();
         }
 
-        public bool ValidaCapa(IFormFile capa)
-        {
-            switch (capa.ContentType)
-            {
-                case "image/jpeg":
-                    return true;
-                case "image/bmp":
-                    return true;
-                case "image/gif":
-                    return true;
-                case "image/png":
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        public async Task<IActionResult> SalvarCapa(IFormFile capa)
-        {
-            var nome = Guid.NewGuid().ToString() + capa.FileName;
-
-            var filePath = Path.Combine("wwwroot/capas", capa.FileName);
-            if (!Directory.Exists(filePath))
-            {
-                Directory.CreateDirectory(filePath);
-            }
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-              await capa.CopyToAsync(stream);
-            }
-
-            return RedirectToAction("Index");
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Editar(BibliotecaModel biblioteca)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(BibliotecaModel biblioteca, IFormFile capa)
         {
+
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
+                if (capa != null && capa.Length > 0)
+                {
+                    var uploads = Path.Combine(_environment.WebRootPath, "capas");
+                    var nomeArquivo = Guid.NewGuid().ToString() + biblioteca.Titulo + Path.GetExtension(capa.FileName);
+                    var filePath = Path.Combine(uploads, nomeArquivo);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await capa.CopyToAsync(stream);
+                    }
+
+                    biblioteca.Capa = "/capas/" + nomeArquivo;
+
+                }
                 _db.Bibliotecas.Update(biblioteca);
                 await _db.SaveChangesAsync();
 
@@ -152,11 +156,6 @@ namespace Biblioteca.Controllers
             }
 
             var registro = await _db.Bibliotecas.FindAsync(biblioteca.Id);
-            string filePathName = _filePath + "\\capas\\" + registro.Capa;
-
-            if (System.IO.File.Exists(filePathName))
-                System.IO.File.Delete(filePathName);
-
 
             _db.Bibliotecas.Remove(registro);
             await _db.SaveChangesAsync();
@@ -165,6 +164,41 @@ namespace Biblioteca.Controllers
 
 
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Detalhar(BibliotecaModel biblioteca, IFormFile capa, int id)
+        {
+            if (id != biblioteca.Id) return NotFound();
+
+            ModelState.Clear();
+            if (ModelState.IsValid)
+            {
+                if (capa != null && capa.Length > 0)
+                {
+                    var uploads = Path.Combine(_environment.WebRootPath, "capas");
+                    var nomeArquivo = biblioteca.Id + Guid.NewGuid().ToString() + biblioteca.Titulo + Path.GetExtension(capa.FileName);
+                    var filePath = Path.Combine(uploads, nomeArquivo);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await capa.CopyToAsync(stream);
+                    }
+
+                    biblioteca.Capa = "/capas/" + nomeArquivo;
+
+                }
+
+                var nomeCapa = biblioteca.Capa;
+
+                _db.Update(biblioteca);
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            TempData["MensagemErro"] = "Algum erro ocorreu ao realizar a edição!";
+
+            return View(biblioteca);
         }
     }
 }

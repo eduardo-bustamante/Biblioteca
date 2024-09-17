@@ -11,5 +11,6 @@ namespace Biblioteca.Data
         }
 
         public DbSet<BibliotecaModel> Bibliotecas { get; set; }
+
     }
 }
